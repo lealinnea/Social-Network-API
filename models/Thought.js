@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const tagSchema = new Schema(
+const thoughtSchema = new Schema(
   {
     tagName: {
       type: String,
@@ -26,6 +26,6 @@ tagSchema
     return `color: ${this.color}`;
   });
 
-const Tag = model('tag', tagSchema);
+const Thought = model('thought', thoughtSchema);
 
-module.exports = Tag;
+module.exports = Thought;
