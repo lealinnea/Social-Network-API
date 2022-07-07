@@ -1,29 +1,38 @@
 const { Schema, model } = require('mongoose');
+const reactionSchema = require("./Reaction");
 
 const thoughtSchema = new Schema(
   {
-    tagName: {
+    thoughtText: {
       type: String,
-      required: true,
+      required: 'You need to leave a thought!',
+      minlength: 1,
+      maxlength: 280
     },
-    color: {
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      
+    },
+    username: {
       type: String,
-      default: '#008080',
+      required: true
     },
-    createdAt: Date,
+    reactions: [reactionSchema]
   },
   {
     toJSON: {
-      virtuals: true,
+      getters: true
     },
+    id: false
   }
 );
 
-tagSchema
-  .virtual('getTagCss')
+thoughtSchema
+  .virtual('reactionCount')
   // Getter
   .get(function () {
-    return `color: ${this.color}`;
+    return this.reactions.length;
   });
 
 const Thought = model('thought', thoughtSchema);
