@@ -1,14 +1,23 @@
 const router = require('express').Router();
 const {
-  getTags,
-  getSingleTag,
-  createTag,
-} = require('../../controllers/tagController');
+  getThought,
+  getSingleThought,
+  updateThought,
+  deleteThought,
+  addReaction,
+  removeReaction,
+  createThought,
 
-// /api/users
-router.route('/').get(getTags).post(createTag);
+} = require('../../controllers/thoughtController');
 
-// /api/users/:userId
-router.route('/:userId').get(getSingleTag);
+
+router.route('/').get(getThought).post(createThought);
+
+
+router.route('/:thoughtId').get(getSingleThought).put(updateThought).delete(deleteThought);
+
+router.route('/:thougthId/reactions').post(addReaction);
+
+router.route('/:thougthId/reactions/:reactionId').delete(removeReaction);
 
 module.exports = router;
